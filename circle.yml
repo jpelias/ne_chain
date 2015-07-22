@@ -1,0 +1,14 @@
+machine:
+  python:
+    version: 2.7.5
+dependencies:
+  pre:
+    
+    - pip install ecdsa
+    - pip install numpy
+    - pip install gmpy
+    
+test:
+  override:
+      
+    - python electron.py
