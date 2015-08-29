@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # list of words from http://en.wiktionary.org/wiki/Wiktionary:Frequency_lists/Contemporary_poetry
 
-#sudo apt-get install libwww-perl 
+#sudo apt-get install libwww-perl
 #sudo apt-get install  libgmp3-dev
 #sudo pip install gmpy
 
@@ -11,7 +11,8 @@ from time import sleep
 import sys, ecdsa, hashlib, binascii
 from addrgen import addr_from_mpk
 import random
-
+import requests
+import json
 
 # secp256k1, http://www.oid-info.com/get/1.3.132.0.10
 _p = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2FL
@@ -23,7 +24,7 @@ _Gy = 0x483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8L
 curve_secp256k1 = ecdsa.ellipticcurve.CurveFp( _p, _a, _b )
 generator_secp256k1 = ecdsa.ellipticcurve.Point( curve_secp256k1, _Gx, _Gy, _r )
 oid_secp256k1 = (1,3,132,0,10)
-SECP256k1 = ecdsa.curves.Curve("SECP256k1", curve_secp256k1, generator_secp256k1, oid_secp256k1 ) 
+SECP256k1 = ecdsa.curves.Curve("SECP256k1", curve_secp256k1, generator_secp256k1, oid_secp256k1 )
 
 words = [
 "like",
@@ -1689,7 +1690,7 @@ def public_key_to_address(public_key):
     vh160 = chr(0) + md.digest()
     h = hashlib.sha256(hashlib.sha256( vh160 ).digest()).digest()
     addr = vh160 + h[0:4]
-    
+
     alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
     long_value = 0L
     for (i, c) in enumerate(addr[::-1]):
@@ -1721,16 +1722,16 @@ for joder in range(10000):
     for i in range(12):
 
         palabras = random.sample(words,1)
-        frase[i] = ''.join(palabras) 
-    
+        frase[i] = ''.join(palabras)
 
-    #print ' '.join(frase) 
+
+    #print ' '.join(frase)
     #print frase
     semilla = mn_decode(frase)
 
 #print mn_encode('f90e7d9fb490955f2d9483fd44d8b9f7')
 
-    #print semilla 
+    #print semilla
 
     for seed in range(1):
         oldseed = seed = semilla
@@ -1751,16 +1752,43 @@ for joder in range(10000):
         public_key = ecdsa.VerifyingKey.from_public_point( master_public_key.pubkey.point + z*SECP256k1.generator, curve = SECP256k1 )
 
         direccion = public_key_to_address( '04'.decode('hex') + public_key.to_string() )
-    
-    
-        
-        cantidad = os.popen("GET https://blockchain.info/es/q/addressbalance/" + direccion).read()
-        amount = float (cantidad)
-    
-        #print direccion, amount  
-        acumulado = acumulado + amount 
-    
 
-    print semilla  , repr(acumulado).rjust(8)
+
+        #direccion = "12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"
+
+        # cantidad = os.popen("GET https://blockchain.info/es/q/addressbalance/" + direccion).read()
+
+
+
+        url = "https://bitcoin.toshi.io/api/v0/addresses/" + direccion
+
+        headers = {'Content-Type': 'application/json',
+           'Accept-Encoding': 'gzip, deflate' ,
+           'User-Agent': 'Ninguno' ,
+           'Connection': 'keep-alive'}
+
+        cantidad = 0
+
+        r = requests.get(url,headers=headers)
+
+        if r.status_code == 200:
+
+            data=r.json()
+
+            #print data
+
+            cantidad = (float (data['balance'])) /100000000
+
+            #print cantidad
+
+        #print direccion,cantidad
+
+        #amount = float (cantidad)
+
+        #print direccion, amount
+        acumulado = acumulado + cantidad
+
+
+    print semilla  , acumulado
     sleep (4)
 
