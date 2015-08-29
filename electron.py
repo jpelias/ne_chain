@@ -5,7 +5,6 @@
 #sudo apt-get install  libgmp3-dev
 #sudo pip install gmpy
 
-
 import os
 from time import sleep
 import sys, ecdsa, hashlib, binascii
