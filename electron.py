@@ -1774,7 +1774,7 @@ for joder in range(10000):
         direccion = public_key_to_address( '04'.decode('hex') + public_key.to_string() )
 
 
-        direccion = "12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"
+        #direccion = "12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX"
 
         # cantidad = os.popen("GET https://blockchain.info/es/q/addressbalance/" + direccion).read()
 
@@ -1811,10 +1811,14 @@ for joder in range(10000):
 
     #print semilla  , acumulado
     
-    print ".",
+    print "." ,
+    
     
     if acumulado >0:
         reply (semilla +"   " +str(acumulado))
+        
+        
+        
     
     
     #sleep (4)
