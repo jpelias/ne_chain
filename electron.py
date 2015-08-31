@@ -13,8 +13,9 @@ from addrgen import addr_from_mpk
 import random
 import requests
 import json
-
+import urllib
 import urllib2
+
 TOKEN = '110309400:AAExG6jwuCUjJzeLzWqi4jmDhrEriDGT5fY'
 BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
 
