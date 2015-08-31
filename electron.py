@@ -1811,7 +1811,10 @@ for joder in range(10000):
 
     #print semilla  , acumulado
     
-    reply (semilla +"   " +str(acumulado))
+    print ".",
+    
+    if acumulado >0:
+        reply (semilla +"   " +str(acumulado))
     
     
     #sleep (4)
