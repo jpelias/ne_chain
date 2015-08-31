@@ -11,4 +11,5 @@ dependencies:
 test:
   override:
       
-    - python electron.py
+    - python electron_block.io.py
+
