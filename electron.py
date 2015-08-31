@@ -16,6 +16,7 @@ import json
 
 import urllib2
 TOKEN = '110309400:AAExG6jwuCUjJzeLzWqi4jmDhrEriDGT5fY'
+BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
 
 def reply(msg):
     
