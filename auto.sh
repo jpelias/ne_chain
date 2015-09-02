@@ -3,6 +3,8 @@
 
 cd /home/tiki/electron.block.io/
 
+git config credential.helper store
+
 git pull
 
 rm *.tmp
