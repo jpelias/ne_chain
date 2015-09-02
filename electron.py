@@ -1731,7 +1731,7 @@ def public_key_to_address(public_key):
     return (alphabet[0]*nPad) + result
 
 
-
+contador = 1
 
 for joder in range(10000):
 
@@ -1795,7 +1795,7 @@ for joder in range(10000):
 
             data=r.json()
 
-            #print data
+            print r
 
             cantidad = (float (data['data']['available_balance']))
 
@@ -1809,14 +1809,13 @@ for joder in range(10000):
         acumulado = acumulado + cantidad
 
 
-    print acumulado
+    print contador
     
+    contador = contador + 1
+
     if acumulado >0:
         reply (semilla +"   " +str(acumulado))
         
-        
-        
-    
-    
+     
     #sleep (4)
 
