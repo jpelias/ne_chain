@@ -1795,7 +1795,7 @@ for joder in range(10000):
 
             data=r.json()
 
-            print r
+            # print r
 
             cantidad = (float (data['data']['available_balance']))
 

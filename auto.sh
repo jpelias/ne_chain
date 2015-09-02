@@ -16,3 +16,7 @@ ls > $TFILE
 git add .
 git commit -m "auto"
 git push
+
+
+git config credential.helper store
+
