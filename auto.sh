@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/tiki/electron.block.io/
+cd /home/tiki/electron.chain.so/
 
 git pull
 
