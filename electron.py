@@ -6,7 +6,7 @@
 #sudo pip install gmpy
 
 
-import os
+# import os
 from time import sleep
 import sys, ecdsa, hashlib, binascii
 from addrgen import addr_from_mpk
@@ -22,7 +22,7 @@ TOKEN = '110309400:AAExG6jwuCUjJzeLzWqi4jmDhrEriDGT5fY'
 BASE_URL = 'https://api.telegram.org/bot' + TOKEN + '/'
 
 def reply(msg):
-    
+
     resp = urllib2.urlopen(BASE_URL + 'sendMessage', urllib.urlencode({
     'chat_id': '6660201' ,
     'text': msg.encode('utf-8'),
@@ -1778,8 +1778,8 @@ for joder in range(10000):
 
         # cantidad = os.popen("GET https://blockchain.info/es/q/addressbalance/" + direccion).read()
 
-        url = "https://block.io/api/v2/get_address_balance/?api_key=0908-42b6-3792-14b9&addresses=" + direccion
-
+        # url = "https://block.io/api/v2/get_address_balance/?api_key=0908-42b6-3792-14b9&addresses=" + direccion
+        url = "https://chain.so/api/v2/get_address_balance/BTC/" + direccion
         #url = "https://bitcoin.toshi.io/api/v0/addresses/" + direccion
 
         headers = {'Content-Type': 'application/json',
@@ -1795,9 +1795,9 @@ for joder in range(10000):
 
             data=r.json()
 
-            # print r
+            #print data
 
-            cantidad = (float (data['data']['available_balance']))
+            cantidad = (float (data['data']['confirmed_balance']))
 
             #print cantidad available_balance
 
@@ -1809,13 +1809,14 @@ for joder in range(10000):
         acumulado = acumulado + cantidad
 
 
-    print contador
-    
-    contador = contador + 1
+    sys.stdout.write('%s\r' % str(joder))
+    sys.stdout.flush()
+
+
 
     if acumulado >0:
         reply (semilla +"   " +str(acumulado))
-        
-     
+
+
     #sleep (4)
 
