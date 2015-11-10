@@ -1,6 +1,5 @@
 ecdsa
 bitcoin
-unicodedata
 requests==2.4.3
 
 
