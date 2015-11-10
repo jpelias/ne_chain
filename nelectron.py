@@ -168,8 +168,6 @@ for joder in range(2000000):
 
     mnemonic = mnemonic(wordlist) 
 
-    print mnemonic
-
     xprb = electrumv2_mnemonic_to_mprivkey (mnemonic)
 
     privkey = encode_privkey (bip32_extract_key (bip32_ckd(bip32_ckd(xprb, 1), 1) ) ,'wif_compressed') 
@@ -195,5 +193,9 @@ for joder in range(2000000):
 
         cantidad = (float (data['data']['confirmed_balance']))
 
-        print cantidad 
+        if (cantidad > 0) :
+            
+             print mnemonic
+             break
+             
 
