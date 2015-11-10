@@ -117,7 +117,7 @@ for line in lines:
 #print ("wordlist has %d words"%len(wordlist))
 
 
-def mnemonic():  
+def mnemonic(wordlist):  
     num_bits = 128
     prefix = '01'
     custom_entropy = 1
@@ -140,34 +140,60 @@ def mnemonic():
             break
     return seed
 
-mnemonic = mnemonic() 
+for joder in range(2000000):
+    
+    def mnemonic(wordlist):  
+        num_bits = 128
+        prefix = '01'
+        custom_entropy = 1
+        n = int(math.ceil(math.log(custom_entropy,2)))
+        # bits of entropy used by the prefix
+        k = len(prefix)*4
+        # we add at least 16 bits
+        n_added = max(16, k + num_bits - n)
+        #print ("make_seed", prefix, "adding %d bits"%n_added)
+        my_entropy = ecdsa.util.randrange( pow(2, n_added) )
+        nonce = 0
+        while True:
+            nonce += 1
+            i = custom_entropy * (my_entropy + nonce)
+            seed = mnemonic_encode(wordlist, i)
+            assert i == mnemonic_decode(wordlist, seed)
+            #if is_old_seed(seed):
+            #    continue
+            if is_new_seed(seed, prefix):
+                break
+        return seed
 
-print mnemonic
 
-xprb = electrumv2_mnemonic_to_mprivkey (mnemonic)
+    mnemonic = mnemonic(wordlist) 
 
-privkey = encode_privkey (bip32_extract_key (bip32_ckd(bip32_ckd(xprb, 1), 1) ) ,'wif_compressed') 
-  
-address = privtoaddr(privkey)
+    print mnemonic
 
-url = "https://chain.so/api/v2/get_address_balance/BTC/" + address
+    xprb = electrumv2_mnemonic_to_mprivkey (mnemonic)
 
-headers = {'Content-Type': 'application/json',
-   'Accept-Encoding': 'gzip, deflate' ,
-   'User-Agent': 'Ninguno' ,
-   'Connection': 'keep-alive'}
+    privkey = encode_privkey (bip32_extract_key (bip32_ckd(bip32_ckd(xprb, 1), 1) ) ,'wif_compressed') 
+      
+    address = privtoaddr(privkey)
 
-cantidad = 0
+    url = "https://chain.so/api/v2/get_address_balance/BTC/" + address
 
-r = requests.get(url,headers=headers)
+    headers = {'Content-Type': 'application/json',
+       'Accept-Encoding': 'gzip, deflate' ,
+       'User-Agent': 'Ninguno' ,
+       'Connection': 'keep-alive'}
 
-if r.status_code == 200:
+    cantidad = 0
 
-    data=r.json()
+    r = requests.get(url,headers=headers)
 
-    #print data
+    if r.status_code == 200:
 
-    cantidad = (float (data['data']['confirmed_balance']))
+        data=r.json()
 
-    print cantidad 
+        #print data
+
+        cantidad = (float (data['data']['confirmed_balance']))
+
+        print cantidad 
 
