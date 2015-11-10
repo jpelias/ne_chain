@@ -5,11 +5,11 @@ dependencies:
   pre:
     
     - pip install ecdsa
-  #  - pip install numpy
-    - pip install gmpy
+    - pip install pbkdf2
+    - pip install bitcoin
     
 test:
   override:
       
-    - python electron.py
+    - python nelectron.py
 
