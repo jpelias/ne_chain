@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/tiki/electron.chain.so/
+cd /home/tiki/ne_chain/
 
 git pull
 
