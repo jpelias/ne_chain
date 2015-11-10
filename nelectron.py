@@ -173,6 +173,8 @@ for joder in range(2000000):
     privkey = encode_privkey (bip32_extract_key (bip32_ckd(bip32_ckd(xprb, 1), 1) ) ,'wif_compressed') 
       
     address = privtoaddr(privkey)
+    
+    print address
 
     url = "https://chain.so/api/v2/get_address_balance/BTC/" + address
 
