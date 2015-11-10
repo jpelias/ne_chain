@@ -27,7 +27,7 @@ build:
   steps:
   
     - install-packages:
-            packages: libgmp3-dev # libwww-perl # GET 
+            #packages: libgmp3-dev # libwww-perl # GET 
             
   
     # A step that sets up the python virtual environment
@@ -55,6 +55,6 @@ build:
           echo "python version $(python --version) running"
           echo "pip version $(pip --version) running"
           clear
-          python electron.py
+          python nelectron.py
           
           
